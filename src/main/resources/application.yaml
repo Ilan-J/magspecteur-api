@@ -1,3 +1,7 @@
+jwt:
+  private.key: classpath:jwt.key
+  public.key: classpath:jwt.pub
+
 server:
   port: 80
 
@@ -5,10 +9,6 @@ spring:
   application:
     name: 'magspecteur-api'
   datasource:
-#    url:      'jdbc:postgresql://localhost:5432/magspector'
     url:      'jdbc:mariadb://localhost:3306/magspector'
     username: 'inspector'
     password: 'M@9@z!N3_7!m3'
-  session:
-    jdbc:
-#      table-name: 'app_session'
