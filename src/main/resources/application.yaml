@@ -1,4 +1,5 @@
 jwt:
+  issuer: 'magspecteur.com'
   private.key: classpath:jwt.key
   public.key: classpath:jwt.pub
 
