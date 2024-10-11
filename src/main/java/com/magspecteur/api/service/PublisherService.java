@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PublisherService {
@@ -14,12 +15,17 @@ public class PublisherService {
 	@Autowired
 	private PublisherRepository publisherRepository;
 
-	public Publisher getByName(String name) {
-		return publisherRepository.findByName(name);
-	}
-
 	public List<Publisher> getAll() {
 		return publisherRepository.findAll();
+	}
+
+	public Publisher getById(Integer id) {
+		Optional<Publisher> publisher = publisherRepository.findById(id);
+		return publisher.orElse(null);
+	}
+
+	public Publisher getByName(String name) {
+		return publisherRepository.findByName(name);
 	}
 
 	public Publisher save(Publisher publisher) {
@@ -32,21 +38,19 @@ public class PublisherService {
 				request.address(),
 				request.themes()
 		);
-		save(publisher);
-		return publisher;
+		return save(publisher);
 	}
 
-	public Publisher update(String name, PublisherDTO request) {
-		Publisher publisher = publisherRepository.findByName(name);
+	public Publisher update(Integer id, PublisherDTO request) {
+		Publisher publisher = getById(id);
 		publisher.setName(request.name());
 		publisher.setAddress(request.address());
 		publisher.setThemes(request.themes());
-		save(publisher);
-		return publisher;
+		return save(publisher);
 	}
 
-	public void delete(String name) {
-		Publisher publisher = publisherRepository.findByName(name);
+	public void delete(Integer id) {
+		Publisher publisher = getById(id);
 		publisherRepository.delete(publisher);
 	}
 }

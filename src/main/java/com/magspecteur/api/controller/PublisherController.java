@@ -23,9 +23,9 @@ public class PublisherController {
 				.body(publisherService.getAll());
 	}
 
-	@GetMapping("/publishers/{name}")
-	public ResponseEntity<Publisher> getPublisher(@PathVariable String name) {
-		Publisher publisher = publisherService.getByName(name);
+	@GetMapping("/publishers/{id}")
+	public ResponseEntity<Publisher> getPublisher(@PathVariable Integer id) {
+		Publisher publisher = publisherService.getById(id);
 
 		if (publisher != null) {
 			return ResponseEntity.ok().body(publisher);
@@ -45,21 +45,21 @@ public class PublisherController {
 				.body(publisher);
 	}
 
-	@PutMapping("/publishers/{name}")
-	public ResponseEntity<Publisher> putPublisher(@PathVariable String name, @RequestBody PublisherDTO request) {
-		if (publisherService.getByName(name) == null) {
+	@PutMapping("/publishers/{id}")
+	public ResponseEntity<Publisher> putPublisher(@PathVariable Integer id, @RequestBody PublisherDTO request) {
+		if (publisherService.getById(id) == null) {
 			return ResponseEntity.notFound().build();
 		}
-		publisherService.update(name, request);
+		publisherService.update(id, request);
 		return ResponseEntity.noContent().build();
 	}
 
-	@DeleteMapping("/publishers/{name}")
-	public ResponseEntity<Publisher> deletePublisher(@PathVariable String name) {
-		if (publisherService.getByName(name) == null) {
+	@DeleteMapping("/publishers/{id}")
+	public ResponseEntity<Publisher> deletePublisher(@PathVariable Integer id) {
+		if (publisherService.getById(id) == null) {
 			return ResponseEntity.notFound().build();
 		}
-		publisherService.delete(name);
+		publisherService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 }

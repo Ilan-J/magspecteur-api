@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -23,25 +24,21 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
-	public User getByUsername(String username) {
-		return userRepository.findByUsername(username);
-	}
-
 	public List<User> getAll() {
 		return userRepository.findAll();
 	}
 
-	public User save(User user) {
-		return userRepository.save(user);
+	public User getById(Integer id) {
+		Optional<User> user = userRepository.findById(id);
+		return user.orElse(null);
 	}
 
-	public User create(RegistrationDTO request) {
-		List<Role> roles = new ArrayList<>();
-		try {
-			roles.add(roleService.getByName(Role.ROLE_USER));
-		} catch (Exception ignored) {}
+	public User getByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
 
-		return create(request, roles);
+	public User save(User user) {
+		return userRepository.save(user);
 	}
 
 	public User create(RegistrationDTO request, List<Role> roles) {
@@ -51,7 +48,15 @@ public class UserService {
 				passwordEncoder.encode(request.password()),
 				roles
 		);
-		save(user);
-		return user;
+		return save(user);
+	}
+
+	public User create(RegistrationDTO request) {
+		List<Role> roles = new ArrayList<>();
+		try {
+			roles.add(roleService.getByName(Role.ROLE_USER));
+		} catch (Exception ignored) {}
+
+		return create(request, roles);
 	}
 }
