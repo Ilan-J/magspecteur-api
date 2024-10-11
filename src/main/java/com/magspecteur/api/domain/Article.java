@@ -14,10 +14,7 @@ public class Article {
 	private String author;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "theme",
-			joinColumns = @JoinColumn(name = "fk_theme")
-	)
+	@JoinColumn(name = "fk_theme")
 	private Theme theme;
 
 	public Article() {}

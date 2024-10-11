@@ -15,20 +15,15 @@ public class Magazine {
 
 	private String name;
 	private Integer number;
+	@Column(name = "release_date")
 	private Date release;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "publisher",
-			joinColumns = @JoinColumn(name = "fk_publisher")
-	)
+	@JoinColumn(name = "fk_publisher")
 	private Publisher publisher;
 
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "article",
-			joinColumns = @JoinColumn(name = "fk_magazine")
-	)
+	@JoinColumn(name = "fk_magazine")
 	private Collection<Article> articles;
 
 	public Magazine() {}
