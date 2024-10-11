@@ -1,6 +1,8 @@
 package com.magspecteur.api.service;
 
 import com.magspecteur.api.domain.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.*;
@@ -13,6 +15,7 @@ import java.util.List;
 @Service
 public class JwtService {
 
+	private static final Logger log = LoggerFactory.getLogger(JwtService.class);
 	@Autowired
 	private JwtDecoder jwtDecoder;
 
@@ -65,8 +68,12 @@ public class JwtService {
 	}
 
 	public String getUsername(String token) {
-		String subject = jwtDecoder.decode(token).getSubject();
-
-		return subject.split(",")[1];
+		try {
+			String subject = jwtDecoder.decode(token).getSubject();
+			return subject.split(",")[1];
+		} catch (JwtException e) {
+			log.error("An error occurred while fetching Username from Token", e);
+		}
+		return null;
 	}
 }

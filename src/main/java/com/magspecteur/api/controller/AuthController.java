@@ -1,5 +1,6 @@
 package com.magspecteur.api.controller;
 
+import com.magspecteur.api.configuration.CustomUserDetailsService;
 import com.magspecteur.api.domain.LoginDto;
 import com.magspecteur.api.domain.RegistrationDto;
 import com.magspecteur.api.domain.User;
@@ -26,6 +27,9 @@ public class AuthController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+
+	@Autowired
+	private CustomUserDetailsService customUserDetailsService;
 
 	@Autowired
 	private JwtService jwtService;
@@ -66,7 +70,7 @@ public class AuthController {
 			if (jwtService.validate(refreshToken)) {
 				org.springframework.security.core.userdetails.User userDetails =
 						(org.springframework.security.core.userdetails.User)
-								userService.loadUserByUsername(jwtService.getUsername(refreshToken));
+								customUserDetailsService.loadUserByUsername(jwtService.getUsername(refreshToken));
 				User user = userService.getByUsername(userDetails.getUsername());
 
 				String accessToken = jwtService.generateAccessToken(user);

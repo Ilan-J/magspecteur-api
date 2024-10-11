@@ -1,7 +1,12 @@
 jwt:
   issuer: 'magspecteur.com'
-  private.key: classpath:jwt.key
-  public.key: classpath:jwt.pub
+  private.key: 'classpath:/jwt.key'
+  public.key: 'classpath:/jwt.pub'
+
+logging:
+  level:
+    com.magspecteur: INFO
+    org.springframework: INFO
 
 server:
   port: 80
