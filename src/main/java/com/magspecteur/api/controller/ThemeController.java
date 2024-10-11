@@ -16,7 +16,7 @@ import java.util.List;
 public class ThemeController {
 
 	@Autowired
-	ThemeService themeService;
+	private ThemeService themeService;
 
 	@GetMapping("/themes")
 	public ResponseEntity<List<Theme>> getThemes() {
