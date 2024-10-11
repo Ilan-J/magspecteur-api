@@ -3,6 +3,7 @@ package com.magspecteur.api.domain;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -18,12 +19,21 @@ public class Publisher {
 	@Column(name = "creation_date")
 	private Date creation;
 
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "publisher_themes",
+			joinColumns = @JoinColumn(name = "fk_publisher"),
+			inverseJoinColumns = @JoinColumn(name = "fk_theme")
+	)
+	private Collection<Theme> themes;
+
 	public Publisher() {}
 
-	public Publisher(String name, String address) {
+	public Publisher(String name, String address, Collection<Theme> themes) {
 		this.name = name;
 		this.address = address;
 		this.creation = Date.from(Instant.now());
+		this.themes = themes;
 	}
 
 	public Integer getId() {
@@ -48,5 +58,13 @@ public class Publisher {
 
 	public Date getCreation() {
 		return creation;
+	}
+
+	public Collection<Theme> getThemes() {
+		return themes;
+	}
+
+	public void setThemes(Collection<Theme> themes) {
+		this.themes = themes;
 	}
 }

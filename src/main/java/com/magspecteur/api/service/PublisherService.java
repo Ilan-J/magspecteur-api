@@ -29,7 +29,8 @@ public class PublisherService {
 	public Publisher create(PublisherDTO request) {
 		Publisher publisher = new Publisher(
 				request.name(),
-				request.address()
+				request.address(),
+				request.themes()
 		);
 		save(publisher);
 		return publisher;
@@ -39,6 +40,7 @@ public class PublisherService {
 		Publisher publisher = publisherRepository.findByName(name);
 		publisher.setName(request.name());
 		publisher.setAddress(request.address());
+		publisher.setThemes(request.themes());
 		save(publisher);
 		return publisher;
 	}

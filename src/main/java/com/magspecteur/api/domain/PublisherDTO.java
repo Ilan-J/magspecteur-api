@@ -1,4 +1,6 @@
 package com.magspecteur.api.domain;
 
-public record PublisherDTO(String name, String address) {
+import java.util.Collection;
+
+public record PublisherDTO(String name, String address, Collection<Theme> themes) {
 }
