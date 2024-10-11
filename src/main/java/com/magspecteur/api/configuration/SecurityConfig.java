@@ -65,7 +65,7 @@ public class SecurityConfig {
 					authorize.requestMatchers(HttpMethod.PUT).hasAuthority(Role.ROLE_ADMIN);
 					authorize.requestMatchers(HttpMethod.PATCH).hasAuthority(Role.ROLE_ADMIN);
 					authorize.requestMatchers(HttpMethod.DELETE).hasAuthority(Role.ROLE_ADMIN);
-					authorize.anyRequest().authenticated();
+					authorize.anyRequest().permitAll();
 				})
 				.httpBasic(Customizer.withDefaults());
 
