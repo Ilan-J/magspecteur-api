@@ -1,8 +1,8 @@
 package com.magspecteur.api.controller;
 
 import com.magspecteur.api.configuration.CustomUserDetailsService;
-import com.magspecteur.api.domain.LoginDto;
-import com.magspecteur.api.domain.RegistrationDto;
+import com.magspecteur.api.domain.LoginDTO;
+import com.magspecteur.api.domain.RegistrationDTO;
 import com.magspecteur.api.domain.User;
 import com.magspecteur.api.service.JwtService;
 import com.magspecteur.api.service.UserService;
@@ -38,7 +38,7 @@ public class AuthController {
 	private UserService userService;
 
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, String>> login(@RequestBody LoginDto request) {
+	public ResponseEntity<Map<String, String>> login(@RequestBody LoginDTO request) {
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
 				request.username(),
 				request.password()
@@ -85,7 +85,7 @@ public class AuthController {
 	}
 
 	@PostMapping("/register")
-	public User register(@RequestBody RegistrationDto request) {
+	public User register(@RequestBody RegistrationDTO request) {
 		return userService.create(request);
 	}
 }

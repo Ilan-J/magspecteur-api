@@ -1,6 +1,6 @@
 package com.magspecteur.api.service;
 
-import com.magspecteur.api.domain.RegistrationDto;
+import com.magspecteur.api.domain.RegistrationDTO;
 import com.magspecteur.api.domain.Role;
 import com.magspecteur.api.domain.User;
 import com.magspecteur.api.repository.UserRepository;
@@ -35,7 +35,7 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
-	public User create(RegistrationDto request) {
+	public User create(RegistrationDTO request) {
 		List<Role> roles = new ArrayList<>();
 		try {
 			roles.add(roleService.getByName(Role.ROLE_USER));
@@ -44,7 +44,7 @@ public class UserService {
 		return create(request, roles);
 	}
 
-	public User create(RegistrationDto request, List<Role> roles) {
+	public User create(RegistrationDTO request, List<Role> roles) {
 		User user = new User(
 				request.email(),
 				request.username(),
