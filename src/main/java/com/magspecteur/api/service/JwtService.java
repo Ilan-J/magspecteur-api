@@ -62,7 +62,7 @@ public class JwtService {
 		try {
 			expiresAt = jwtDecoder.decode(token).getExpiresAt();
 		} catch (JwtException e) {
-			System.out.printf("Invalid JWT: %s%n", token);
+			log.error("Invalid JWT: {}", token);
 		}
 		return expiresAt != null && expiresAt.isAfter(Instant.now());
 	}
