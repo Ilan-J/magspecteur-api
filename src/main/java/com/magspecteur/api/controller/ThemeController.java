@@ -1,14 +1,14 @@
 package com.magspecteur.api.controller;
 
 import com.magspecteur.api.domain.Theme;
+import com.magspecteur.api.domain.ThemeDTO;
 import com.magspecteur.api.service.ThemeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController()
@@ -28,9 +28,38 @@ public class ThemeController {
 	public ResponseEntity<Theme> getTheme(@PathVariable Integer id) {
 		Theme theme = themeService.getById(id);
 
-		if (theme != null) {
-			return ResponseEntity.ok().body(theme);
+		if (theme == null) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(theme);
+	}
+
+	public ResponseEntity<Theme> postTheme(@RequestBody ThemeDTO request) {
+		Theme theme;
+		try {
+			theme = themeService.create(request);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().build();
+		}
+		return ResponseEntity.created(URI.create("/api/themes/" + theme.getId()))
+				.body(theme);
+	}
+
+	@PutMapping("/themes/{id}")
+	public ResponseEntity<Theme> putTheme(@PathVariable Integer id, @RequestBody Theme theme) {
+		if (themeService.getById(id) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		themeService.update(theme);
+		return ResponseEntity.noContent().build();
+	}
+
+	@DeleteMapping("/themes/{id}")
+	public ResponseEntity<Theme> deleteTheme(@PathVariable Integer id) {
+		if (themeService.getById(id) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		themeService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

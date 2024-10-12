@@ -1,6 +1,7 @@
 package com.magspecteur.api.service;
 
 import com.magspecteur.api.domain.Theme;
+import com.magspecteur.api.domain.ThemeDTO;
 import com.magspecteur.api.repository.ThemeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,21 @@ public class ThemeService {
 
 	public Theme save(Theme theme) {
 		return themeRepository.save(theme);
+	}
+
+	public Theme create(ThemeDTO request) {
+		Theme theme = new Theme(
+				request.name()
+		);
+		return save(theme);
+	}
+
+	public Theme update(Theme theme) {
+		return save(theme);
+	}
+
+	public void delete(Integer id) {
+		Theme theme = getById(id);
+		themeRepository.delete(theme);
 	}
 }
