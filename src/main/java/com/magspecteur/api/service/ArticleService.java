@@ -1,6 +1,7 @@
 package com.magspecteur.api.service;
 
 import com.magspecteur.api.domain.Article;
+import com.magspecteur.api.domain.ArticleDTO;
 import com.magspecteur.api.repository.ArticleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,5 +30,24 @@ public class ArticleService {
 
 	public Article save(Article article) {
 		return articleRepository.save(article);
+	}
+
+	public Article create(ArticleDTO request) {
+		Article article = new Article(
+				request.name(),
+				request.author(),
+				request.magazineId(),
+				request.theme()
+		);
+		return save(article);
+	}
+
+	public Article update(Article article) {
+		return save(article);
+	}
+
+	public void delete(Integer id) {
+		Article article = getById(id);
+		articleRepository.delete(article);
 	}
 }
