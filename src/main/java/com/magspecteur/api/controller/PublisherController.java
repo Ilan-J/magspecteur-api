@@ -27,10 +27,10 @@ public class PublisherController {
 	public ResponseEntity<Publisher> getPublisher(@PathVariable Integer id) {
 		Publisher publisher = publisherService.getById(id);
 
-		if (publisher != null) {
-			return ResponseEntity.ok().body(publisher);
+		if (publisher == null) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(publisher);
 	}
 
 	@PostMapping("/publishers")
