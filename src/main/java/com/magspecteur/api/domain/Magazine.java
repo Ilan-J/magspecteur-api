@@ -22,18 +22,13 @@ public class Magazine {
 	@JoinColumn(name = "fk_publisher")
 	private Publisher publisher;
 
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name = "fk_magazine")
-	private Collection<Article> articles;
-
 	public Magazine() {}
 
-	public Magazine(String name, Integer number, Date release, Publisher publisher, Collection<Article> articles) {
+	public Magazine(String name, Integer number, Date release, Publisher publisher) {
 		this.name = name;
 		this.number = number;
 		this.release = release;
 		this.publisher = publisher;
-		this.articles = articles;
 	}
 
 	public Integer getId() {
@@ -70,13 +65,5 @@ public class Magazine {
 
 	public void setPublisher(Publisher publisher) {
 		this.publisher = publisher;
-	}
-
-	public Collection<Article> getArticles() {
-		return articles;
-	}
-
-	public void setArticles(Collection<Article> articles) {
-		this.articles = articles;
 	}
 }

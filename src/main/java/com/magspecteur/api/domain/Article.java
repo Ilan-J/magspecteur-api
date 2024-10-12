@@ -13,15 +13,19 @@ public class Article {
 	private String name;
 	private String author;
 
+	@Column(name = "fk_magazine")
+	private Integer magazineId;
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "fk_theme")
 	private Theme theme;
 
 	public Article() {}
 
-	public Article(String name, String author, Theme theme) {
+	public Article(String name, String author, Integer magazineId, Theme theme) {
 		this.name = name;
 		this.author = author;
+		this.magazineId = magazineId;
 		this.theme = theme;
 	}
 
@@ -43,6 +47,14 @@ public class Article {
 
 	public void setAuthor(String author) {
 		this.author = author;
+	}
+
+	public Integer getMagazineId() {
+		return magazineId;
+	}
+
+	public void setMagazineId(Integer magazineId) {
+		this.magazineId = magazineId;
 	}
 
 	public Theme getTheme() {
