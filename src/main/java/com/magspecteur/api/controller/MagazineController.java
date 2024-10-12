@@ -27,9 +27,9 @@ public class MagazineController {
 	public ResponseEntity<Magazine> getMagazine(Integer id) {
 		Magazine magazine = magazineService.getById(id);
 
-		if (magazine != null) {
-			return ResponseEntity.ok().body(magazine);
+		if (magazine == null) {
+			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(magazine);
 	}
 }
