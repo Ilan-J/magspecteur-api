@@ -41,7 +41,7 @@ public class PublisherController {
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(null);
 		}
-		return ResponseEntity.created(URI.create("/api/publishers/" + publisher.getName()))
+		return ResponseEntity.created(URI.create("/api/publishers/" + publisher.getId()))
 				.body(publisher);
 	}
 
