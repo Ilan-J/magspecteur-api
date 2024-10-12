@@ -2,10 +2,12 @@ package com.magspecteur.api.service;
 
 import com.magspecteur.api.domain.Publisher;
 import com.magspecteur.api.domain.PublisherDTO;
+import com.magspecteur.api.domain.Theme;
 import com.magspecteur.api.repository.PublisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,20 +34,21 @@ public class PublisherService {
 		return publisherRepository.save(publisher);
 	}
 
-	public Publisher create(PublisherDTO request) {
+	public Publisher create(PublisherDTO request, List<Theme> themes) {
 		Publisher publisher = new Publisher(
 				request.name(),
 				request.address(),
-				request.themes()
+				themes
 		);
 		return save(publisher);
 	}
 
-	public Publisher update(Integer id, PublisherDTO request) {
-		Publisher publisher = getById(id);
-		publisher.setName(request.name());
-		publisher.setAddress(request.address());
-		publisher.setThemes(request.themes());
+	public Publisher create(PublisherDTO request) {
+		List<Theme> themes = new ArrayList<>();
+		return create(request, themes);
+	}
+
+	public Publisher update(Publisher publisher) {
 		return save(publisher);
 	}
 

@@ -46,11 +46,11 @@ public class PublisherController {
 	}
 
 	@PutMapping("/publishers/{id}")
-	public ResponseEntity<Publisher> putPublisher(@PathVariable Integer id, @RequestBody PublisherDTO request) {
+	public ResponseEntity<Publisher> putPublisher(@PathVariable Integer id, @RequestBody Publisher publisher) {
 		if (publisherService.getById(id) == null) {
 			return ResponseEntity.notFound().build();
 		}
-		publisherService.update(id, request);
+		publisherService.update(publisher);
 		return ResponseEntity.noContent().build();
 	}
 
