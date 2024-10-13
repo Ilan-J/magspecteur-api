@@ -19,8 +19,10 @@ public class MagazineService {
 	@Autowired
 	private PublisherService publisherService;
 
-	public List<Magazine> getAll() {
-		return magazineRepository.findAll();
+	public List<Magazine> getAll(String search) {
+		if (search == null)
+			return magazineRepository.findAll();
+		return magazineRepository.findByNameContaining(search);
 	}
 
 	public Magazine getById(Integer id) {
