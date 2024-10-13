@@ -22,7 +22,7 @@ public class MagazineService {
 	public List<Magazine> getAll(String search) {
 		if (search == null)
 			return magazineRepository.findAll();
-		return magazineRepository.findByNameContaining(search);
+		return magazineRepository.findByNameContainingIgnoreCase(search);
 	}
 
 	public Magazine getById(Integer id) {
