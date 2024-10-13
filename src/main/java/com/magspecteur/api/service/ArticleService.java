@@ -15,8 +15,14 @@ public class ArticleService {
 	@Autowired
 	private ArticleRepository articleRepository;
 
-	public List<Article> getAll() {
-		return articleRepository.findAll();
+	public List<Article> getAll(String search) {
+		if (search == null)
+			return articleRepository.findAll();
+		return articleRepository.findByNameContainingIgnoreCase(search);
+	}
+
+	public List<Article> getAllByMagazineId(Integer id) {
+		return articleRepository.findAllByMagazineId(id);
 	}
 
 	public Article getById(Integer id) {

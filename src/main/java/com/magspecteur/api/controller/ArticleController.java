@@ -3,6 +3,7 @@ package com.magspecteur.api.controller;
 import com.magspecteur.api.domain.Article;
 import com.magspecteur.api.domain.ArticleDTO;
 import com.magspecteur.api.service.ArticleService;
+import com.magspecteur.api.service.MagazineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +18,13 @@ public class ArticleController {
 	@Autowired
 	private ArticleService articleService;
 
+	@Autowired
+	private MagazineService magazineService;
+
 	@GetMapping("/articles")
-	public ResponseEntity<List<Article>> getArticles() {
+	public ResponseEntity<List<Article>> getArticles(@RequestParam String s) {
 		return ResponseEntity.ok()
-				.body(articleService.getAll());
+				.body(articleService.getAll(s));
 	}
 
 	@GetMapping("/articles/{id}")
@@ -61,5 +65,16 @@ public class ArticleController {
 		}
 		articleService.delete(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	// Special queries
+
+	@GetMapping("/magazines/{id}/articles")
+	public ResponseEntity<List<Article>> getAllByMagazineId(@PathVariable Integer id) {
+		if (magazineService.getById(id) == null) {
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok()
+				.body(articleService.getAllByMagazineId(id));
 	}
 }
