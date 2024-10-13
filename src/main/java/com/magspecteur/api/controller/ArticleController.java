@@ -22,7 +22,7 @@ public class ArticleController {
 	private MagazineService magazineService;
 
 	@GetMapping("/articles")
-	public ResponseEntity<List<Article>> getArticles(@RequestParam String s) {
+	public ResponseEntity<List<Article>> getArticles(@RequestParam(required = false) String s) {
 		return ResponseEntity.ok()
 				.body(articleService.getAll(s));
 	}

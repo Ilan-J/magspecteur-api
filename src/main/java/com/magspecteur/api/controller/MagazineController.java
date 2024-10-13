@@ -18,7 +18,7 @@ public class MagazineController {
 	private MagazineService magazineService;
 
 	@GetMapping("/magazines")
-	public ResponseEntity<List<Magazine>> getMagazines(@RequestParam String s) {
+	public ResponseEntity<List<Magazine>> getMagazines(@RequestParam(required = false) String s) {
 		return ResponseEntity.ok()
 				.body(magazineService.getAll(s));
 	}
